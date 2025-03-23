@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        function redirectToStore() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/android/i.test(userAgent)) {
+                window.location.href = "https://play.google.com/store/apps/details?id=com.app.juno"; // Google Play Store
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                window.location.href = "https://apps.apple.com/app/id6618110966"; // Apple App Store
+            } else {
+                window.location.href = "https://www.example.com"; // Optional fallback link
+            }
+        }
+
+        redirectToStore();
+    </script>
+</head>
+<body>
+    <p>If you are not redirected, <a href="#" onclick="redirectToStore()">click here</a>.</p>
+</body>
+</html>
