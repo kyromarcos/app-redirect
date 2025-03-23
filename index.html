@@ -3,24 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
+    <title>KYRO_MARCOS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000080;
+            color: white;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 60px;
+            font-weight: bold;
+            margin-top: 50px;
+            animation: fadeIn 2s ease-in-out, glow 2s infinite alternate;
+        }
+        h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 4px solid white;
+            display: inline-block;
+        }
+        .typing {
+            display: inline-block;
+            animation: typing 3s steps(20, end) infinite, fadeIn 2s ease-in-out;
+        }
+        p {
+            font-size: 24px;
+            margin-top: 20px;
+            opacity: 1;
+            animation: slideUp 2s ease-in-out forwards, pulse 2s infinite alternate;
+        }
+        .store-links {
+            margin-top: 20px;
+        }
+        .store-links a {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #0000ff;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background 0.3s ease-in-out;
+        }
+        .store-links a:hover {
+            background-color: #0000d4;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #fff, 0 0 20px #0000ff; }
+            100% { text-shadow: 0 0 20px #fff, 0 0 40px #0000ff; }
+        }
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        @keyframes typing {
+            0% { content: "W"; }
+            10% { content: "We"; }
+            20% { content: "Wel"; }
+            30% { content: "Welc"; }
+            40% { content: "Welco"; }
+            50% { content: "Welcom"; }
+            60% { content: "Welcome"; }
+            70% { content: "Welcome b"; }
+            80% { content: "Welcome ba"; }
+            90% { content: "Welcome bac"; }
+            100% { content: "Welcome back, User!"; }
+        }
+    </style>
     <script>
-        function redirectToStore() {
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(checkDevice, 500); 
+            animateTyping();
+        });
+
+        function checkDevice() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            
             if (/android/i.test(userAgent)) {
-                window.location.href = "https://play.google.com/store/apps/details?id=com.app.juno"; // Google Play Store
+                window.location.href = "https://play.google.com/store/apps/details?id=com.app.juno";
             } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                window.location.href = "https://apps.apple.com/app/id6618110966"; // Apple App Store
+                window.location.href = "https://apps.apple.com/app/id6618110966";
             } else {
-                window.location.href = "https://www.example.com"; // Optional fallback link
+                document.getElementById("message").textContent = "This app is not available on your device. It is only available on iOS and Android.";
+                document.getElementById("store-links").style.display = "block";
             }
         }
 
-        redirectToStore();
+        function animateTyping() {
+            const textElement = document.getElementById("typing-text");
+            const text = "Welcome back, User!";
+            let index = 0;
+            let isDeleting = false;
+
+            function type() {
+                if (isDeleting) {
+                    textElement.textContent = text.substring(0, index--);
+                } else {
+                    textElement.textContent = text.substring(0, index++);
+                }
+                
+                if (!isDeleting && index === text.length) {
+                    setTimeout(() => isDeleting = true, 1000);
+                } else if (isDeleting && index === 0) {
+                    isDeleting = false;
+                }
+                setTimeout(type, 150);
+            }
+            type();
+        }
     </script>
 </head>
 <body>
-    <p>If you are not redirected, <a href="#" onclick="redirectToStore()">click here</a>.</p>
+    <h1>KYRO_MARCOS</h1>
+    <h2 id="typing-text" class="typing"></h2>
+    <p id="message">Checking your device...</p>
+    <div id="store-links" class="store-links" style="display: none;">
+        <a href="https://apps.apple.com/app/id6618110966">Open on iOS</a>
+        <a href="https://play.google.com/store/apps/details?id=com.app.juno">Open on Android</a>
+    </div>
 </body>
 </html>
